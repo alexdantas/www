@@ -35,6 +35,11 @@ game.resources = [
 		type : "image",
 		src  : "data/image/sprite/checkpoint.png"
 	},
+	{
+		name : "enemy-square",
+		type : "image",
+		src  : "data/image/sprite/enemy-square.png"
+	},
 
 	// Backgrounds
 	{

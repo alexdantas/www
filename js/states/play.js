@@ -66,14 +66,30 @@ game.PlayState = me.ScreenObject.extend({
 			me.game.viewport,
 			this.mouseUp.bind(this)
 		);
+
+		// Place the camera on the player
+		// (but not directly over it, on the map screen)
+		me.game.viewport.moveTo(
+			game.player.pos.x / 32,
+			game.player.pos.y / 32
+		);
 	},
 
 	/**
-	 * Attaches a reference to the player on the
-	 * global namespace (so other people can access it).
+	 * Called when the level is loaded.
+	 * @note Not a melonJS callback! We've attached it
+	 *       right up there.
 	 */
 	onLevelLoaded : function onLevelLoaded() {
-		me.game.player  = me.game.world.getChildByName("player")[0];
+
+		// Here's a catch
+		//
+		// Normally on melonJS, the Tiled's collision
+		// layer would be invisible.
+		// That's not so here - the collision layer is the
+		// same as the foreground.
+		// So.. yeah
+		me.game.currentLevel.getLayerByName("collision").setOpacity(1);
 	},
 
 	/**

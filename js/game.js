@@ -165,11 +165,18 @@ var game = {
 		// Add game entities to the entity pool.
 		// They're defined on the `js/entities` directory
 		//
-		// That first string is for Tiled - we'll look for
-		// it when reading Tiled maps' entities.
-		me.pool.register("player",     game.playerEntity);
-		me.pool.register("spike",      game.spikeEntity);
-		me.pool.register("checkpoint", game.checkpointEntity);
+		// Arguments:
+		// 1. Object name on Tiled - we'll look for it when
+		//    reading Tiled maps' entities.
+		// 2. Class name to create (each on it's own file)
+		// 3. If you plan on creating more than one of those,
+		//    set this as true to speed things up.
+		//
+		me.pool.register("player",      game.playerEntity);
+		me.pool.register("spike",       game.spikeEntity,      true);
+		me.pool.register("spike-group", game.spikeGroupEntity, true);
+		me.pool.register("checkpoint",  game.checkpointEntity, true);
+		me.pool.register("enemy-path",  game.enemyPathEntity,  true);
 
 		// Defining some custom constants to uniquely
 		// identify some entities

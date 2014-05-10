@@ -65,6 +65,14 @@ game.playerEntity = me.ObjectEntity.extend({
 
 	update : function(delta) {
 
+		// This makes the Camera center on the player's
+		// position, making sure it'll move 32 pixels
+		// at a time.
+		me.game.viewport.moveTo(
+			Math.floor(this.pos.x/32) * 32,
+			Math.floor(this.pos.y/32) * 32
+		);
+
 		if (! this.alive)
 			return false;
 
@@ -72,11 +80,11 @@ game.playerEntity = me.ObjectEntity.extend({
 		if (this.dying)
 			return true;
 
-		// Fell into outside the screen
-		if (! this.inViewport) {
-			this.die();
-			return false;
-		}
+		// // Fell into outside the screen
+		// if (! this.inViewport) {
+		// 	this.die();
+		// 	return false;
+		// }
 
 		// Invert gravity (only possible when on the floor)
 		if (me.input.isKeyPressed("jump"))
@@ -87,6 +95,12 @@ game.playerEntity = me.ObjectEntity.extend({
 		if      (me.input.isKeyPressed("left"))  this.vel.x -= xSpeedIncrease;
 		else if (me.input.isKeyPressed("right")) this.vel.x += xSpeedIncrease;
 		else                                     this.vel.x  = 0;
+
+		// DEBUG
+		if (me.input.isKeyPressed("down")) {
+			this.die();
+			return false;
+		}
 
 		// Need to call this so we can update
 		// the movement, animation and stuff
