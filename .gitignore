@@ -7,3 +7,5 @@ node_modules/
 .#*SPEEDBAR*
 
 webkit_build
+
+tmp

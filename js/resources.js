@@ -11,24 +11,29 @@ game.resources = [
 	{
 		name : "tiles",
 		type : "image",
-		src  :  "data/image/tile/tiles.png"
+		src  : "data/image/tile/tiles.png"
 	},
 
 	// Sprites
 	{
 		name : "player-spritesheet",
 		type : "image",
-		src  :  "data/image/sprite/player.png"
+		src  : "data/image/sprite/player.png"
 	},
 	{
 		name : "spike-sprite-horizontal",
 		type : "image",
-		src  :  "data/image/sprite/spike-horizontal.png"
+		src  : "data/image/sprite/spike-horizontal.png"
 	},
 	{
 		name : "spike-sprite-vertical",
 		type : "image",
-		src  :  "data/image/sprite/spike-vertical.png"
+		src  : "data/image/sprite/spike-vertical.png"
+	},
+	{
+		name : "checkpoint",
+		type : "image",
+		src  : "data/image/sprite/checkpoint.png"
 	},
 
 	// Backgrounds

@@ -41,6 +41,14 @@ game.playerEntity = me.ObjectEntity.extend({
 		// we die we return here.
 		this.checkpoint();
 
+		// Gravity is the key of this game.
+		//
+		// @note Independently of this gravity, the player's
+		//       vertical position can't go further than
+		//       what we set up there.
+		this.gravity         = me.sys.gravity;
+		this.absoluteGravity = Math.abs(this.gravity);
+
 		// Keeping a global reference so we can acccess
 		// the player anywhere.
 		game.player = this;
@@ -151,6 +159,12 @@ game.playerEntity = me.ObjectEntity.extend({
 	 */
 	die : function() {
 
+		game.data.deaths++;
+
+		// Just a nice quirk -- changing the title
+		// to the number of times the player died :)
+		game.changeWindowTitle(game.data.deaths + " : www");
+
 		// No more updating for Mr. Player!
 		// (but force the "dying" animation)
 		this.dying = true;
@@ -174,9 +188,9 @@ game.playerEntity = me.ObjectEntity.extend({
 	 * Saves the current position and stuff so when
 	 * we die we return here.
 	 */
-	checkpoint : function () {
+	checkpoint : function (x, y, checkpointType) {
 
-		// A little separate namespace.
+		// A little separate name space.
 		// Just for organizing things
 		this.respawn = this.respawn || {};
 
@@ -184,15 +198,18 @@ game.playerEntity = me.ObjectEntity.extend({
 		// When he dies, it will mirror what's inside here.
 
 		// It's (x,y) position
-		this.respawn.pos   = this.respawn.pos || new me.Vector2d(0,0);
-		this.respawn.pos.x = this.pos.x;
-		this.respawn.pos.y = this.pos.y;
+		this.respawn.pos   = this.respawn.pos || new me.Vector2d(x, y);
+		this.respawn.pos.x = x;
+		this.respawn.pos.y = y;
 
 		// Player can die in one map and respawn on another
 		this.respawn.area = this.area;
 
-		// Vertical checkpoints!
-		this.respawn.gravity = this.gravity;
+		// Checkpoints on the roof or on the ground?
+		// Makes the player gravity.
+		this.respawn.gravity = ((checkpointType === game.checkpoint.type.BOTTOM) ?
+								this.absoluteGravity :
+								-this.absoluteGravity);
 	},
 
 	/**

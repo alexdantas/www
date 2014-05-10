@@ -21,6 +21,9 @@ var game = {
 	 *       (across page loads, for example) see `me.save`
 	 */
 	data : {
+		// How many times the player has died
+		deaths : 0,
+
 		// First level to be loaded
 		currentLevel : "area000"
 	},
@@ -164,12 +167,14 @@ var game = {
 		//
 		// That first string is for Tiled - we'll look for
 		// it when reading Tiled maps' entities.
-		me.pool.register("player", game.playerEntity);
-		me.pool.register("spike",  game.spikeEntity);
+		me.pool.register("player",     game.playerEntity);
+		me.pool.register("spike",      game.spikeEntity);
+		me.pool.register("checkpoint", game.checkpointEntity);
 
 		// Defining some custom constants to uniquely
 		// identify some entities
-		me.game.SPIKE_OBJECT = "spike";
+		me.game.SPIKE_OBJECT      = "spike";
+		me.game.CHECKPOINT_OBJECT = "checkpoint";
 
 		// Global fonts we'll use to draw text
 		// (see `resources.js`)
@@ -216,6 +221,20 @@ var game = {
 
 		// Start the game.
 		me.state.change(me.state.STATE_MAIN_MENU);
+	},
+
+	/**
+	 * Small helper that changes the Window title
+	 * (everything inside <title> .. </title>.
+	 */
+	changeWindowTitle : function (title) {
+
+		// Since accessing the DOM takes a while, let's
+		// do it once and keep a global reference to the
+		// <title> thingy
+		game.titleElement = game.titleElement || document.getElementsByTagName("title")[0];
+
+		game.titleElement.innerHTML = title;
 	}
 };
 
