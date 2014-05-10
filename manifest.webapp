@@ -1,0 +1,11 @@
+{
+    "name"        : "www",
+    "launch_path" : "./index.html",
+    "version"     : "0.0.1",
+
+    "developer": {
+        "name" : "Alexandre Dantas",
+        "url"  : "http://alexdantas.net/"
+    },
+    "fullscreen": true
+}

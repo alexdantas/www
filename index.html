@@ -1,0 +1,98 @@
+<!DOCTYPE HTML>
+<!--
+   - Don't try to read the source from here,
+   - this is the production build.
+   -
+   - For the complete (commented) source code, go to:
+   - <%= repository %>
+   -
+   -->
+<html>
+  <head>
+	<!-- Meta stuff -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="description"           content="<%= description %>">
+    <meta name="author"                content="<%= author %>">
+
+	<link type="text/plain" rel="author" href="humans.txt" />
+
+	<title><%= name %> v<%= version %></title>
+
+	<!-- Styles -->
+	<link rel="stylesheet" type="text/css" media="screen" href="css/normalize.css">
+	<link rel="stylesheet" type="text/css" media="screen" href="css/index.css">
+	<link rel="shortcut icon" href="favicon.png">
+
+	<!-- Mobile stuff -->
+	<meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+	<meta name="apple-mobile-web-app-capable" content="yes">
+	<meta name="mobile-web-app-capable" content="yes">
+	<meta name="apple-mobile-web-app-status-bar-style" content="black">
+  </head>
+
+  <body>
+
+	<div id="screen">
+	  <!-- The whole game goes here! -->
+	</div>
+
+
+	<!-- Scripts
+	   - On development version, lots of <script> tags.
+	   - When building the production version with `grunt`,
+	   - they'll be compressed into a single `app.min.js`
+	   -->
+
+	<!-- compress:js js/app.min.js -->
+	<!-- melonJS Library -->
+	<script type="text/javascript" src="lib/melonJS-1.0.0.js"></script>
+
+	<!-- Plugin(s) -->
+	<script type="text/javascript" src="lib/plugins/debugPanel.js"></script>
+
+	<!-- Game Scripts -->
+	<script type="text/javascript" src="js/game.js"></script>
+	<script type="text/javascript" src="js/resources.js"></script>
+
+	<script type="text/javascript" src="js/entities/player.js"></script>
+	<script type="text/javascript" src="js/entities/spike.js"></script>
+
+	<script type="text/javascript" src="js/gui/HUD.js"></script>
+	<script type="text/javascript" src="js/gui/menu.js"></script>
+	<script type="text/javascript" src="js/gui/progress-bar.js"></script>
+
+	<script type="text/javascript" src="js/states/loading.js"></script>
+	<script type="text/javascript" src="js/states/main-menu.js"></script>
+	<script type="text/javascript" src="js/states/play.js"></script>
+	<!-- /compress -->
+
+	<!-- Bootstrap & Mobile optimization tricks -->
+	<script type="text/javascript">
+	 window.onReady(function onReady() {
+	   game.onload();
+
+	   // Mobile browser hacks
+	   if (me.device.isMobile && !navigator.isCocoonJS) {
+		 // Prevent the webview from moving on a swipe
+		 window.document.addEventListener("touchmove", function (e) {
+		   e.preventDefault();
+		   window.scroll(0, 0);
+		   return false;
+		 }, false);
+
+		 // Scroll away mobile GUI
+		 (function () {
+		   window.scrollTo(0, 1);
+		   me.video.onresize(null);
+		 }).defer();
+
+		 me.event.subscribe(me.event.WINDOW_ONRESIZE, function (e) {
+		   window.scrollTo(0, 1);
+		 });
+	   }
+	 });
+	</script>
+  </body>
+</html>
+

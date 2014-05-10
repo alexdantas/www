@@ -1,0 +1,20 @@
+# humanstxt.org/
+# The humans responsible for making this and technologies used
+
+# TEAM
+
+    Lead Developer: Alexandre Dantas
+    Contact: eu [at] alexdantas.net
+    Website: http://alexdantas.net
+    From: Brazil
+
+# THANKS
+
+    <name>
+
+# SITE
+
+    ROOT: HTML5, CSS3
+    LIBS: melonJS
+    EDITOR: Emacs
+
