@@ -204,6 +204,10 @@ var game = {
 			musicVolume : 1.0,
 			sfxVolume   : 0.5,
 
+			// If we're going to show the stars
+			// at the background
+			stars : true,
+
 			// How many times this user beat
 			// the game
 			beatGame : 0

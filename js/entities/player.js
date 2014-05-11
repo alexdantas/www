@@ -52,8 +52,6 @@ game.playerEntity = me.ObjectEntity.extend({
 		// we die we return here.
 		this.checkpoint();
 
-		game.particles.streamParticles();
-
 		// Gravity is the key of this game.
 		//
 		// @note Independently of this gravity, the player's

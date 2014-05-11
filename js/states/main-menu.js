@@ -20,9 +20,9 @@ game.MainMenuState = me.ScreenObject.extend({
 			me.loader.getImage("main-menu-bg")
 		));
 
-		this.menu = new me.Menu(2, 14);
+		this.menu = new me.Menu(0, 12);
 		this.menu.addItem(
-			" START",
+			"START",
 			function() {
 				// It's very ugly to directly
 				// access a game state...
@@ -54,41 +54,40 @@ game.MainMenuState = me.ScreenObject.extend({
 				me.state.current().menu.children[1].label = newLabel;
 			}
 		);
+		this.menu.addItem(
+			((me.save.stars) ?
+			 "STARS:Y" :
+			 "STARS:N"),
+			function() {
+
+				var newLabel = "";
+
+				if (me.save.stars) {
+					newLabel = "STARS:N";
+					me.save.stars = false;
+//					me.audio.disable();
+				}
+				else {
+					newLabel = "STARS:Y";
+					me.save.stars = true;
+//					me.audio.enable();
+				}
+
+				// That's a VERY HACKISH THING TO DO
+				// I should NEVER have to directly access
+				// stuff like this!
+				me.state.current().menu.children[2].label = newLabel;
+			}
+		);
+		this.menu.addItem(
+			"CREDITS",
+			function() {
+				// It's very ugly to directly
+				// access a game state...
+//				me.state.current().startGame();
+			}
+		);
 		me.game.world.addChild(this.menu);
-
-
-
-
-		/////////////////////////////////////////////////////////////////////
-		// WHY IS THIS NOT WORKING?
-		/////////////////////////////////////////////////////////////////////
-
-		// Here we create a particle emitter to launch particles
-		// on the background.
-		//
-		// First, setting up how will the particles behave.
-		var particleEmitterSettings = {
-			width          : me.game.viewport.width,
-			height          : me.game.viewport.height,
-			gravity        : 1,
-			totalParticles : 200,
-			speedVariation : 3,
-			onlyInViewport : true,
-			floating       : true,
-			z : 99
-		};
-		// And then creating the thing that will emit them.
-		this.particleEmitter = new me.ParticleEmitter(0, 0, particleEmitterSettings);
-		me.game.world.addChild(this.particleEmitter);
-
-		// Launch constantly the particles, like a fountain
-		this.particleEmitter.streamParticles();
-		game.particles = this.particleEmitter;
-		/////////////////////////////////////////////////////////////////////
-
-
-
-
 
 		// Checking out the user input:
 		// control the menu with arrow keys and
