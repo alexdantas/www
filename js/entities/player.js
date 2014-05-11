@@ -52,6 +52,8 @@ game.playerEntity = me.ObjectEntity.extend({
 		// we die we return here.
 		this.checkpoint();
 
+		game.particles.streamParticles();
+
 		// Gravity is the key of this game.
 		//
 		// @note Independently of this gravity, the player's
@@ -180,7 +182,7 @@ game.playerEntity = me.ObjectEntity.extend({
 		else
 			this.renderable.flipY(false);
 
-		me.audio.play("jump");
+		me.audio.play("jump", false, null, me.save.sfxVolume);
 	},
 
 	/**
@@ -215,7 +217,7 @@ game.playerEntity = me.ObjectEntity.extend({
 			500
 		);
 
-		me.audio.play("death");
+		me.audio.play("death", false, null, me.save.sfxVolume);
 	},
 
 	/**

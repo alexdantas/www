@@ -77,6 +77,14 @@ game.resources = [
 		src  :  "data/map/area000.tmx"
 	},
 
+	// Music
+	{
+		name    : "main-menu",
+		type    : "audio",
+		src     : "data/audio/bgm/",
+		channel : 1
+	},
+
 	// Sound Effects
 	{
 		name    : "menu",

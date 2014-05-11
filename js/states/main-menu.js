@@ -69,6 +69,7 @@ game.MainMenuState = me.ScreenObject.extend({
 		// First, setting up how will the particles behave.
 		var particleEmitterSettings = {
 			width          : me.game.viewport.width,
+			height          : me.game.viewport.height,
 			gravity        : 1,
 			totalParticles : 200,
 			speedVariation : 3,
@@ -82,7 +83,7 @@ game.MainMenuState = me.ScreenObject.extend({
 
 		// Launch constantly the particles, like a fountain
 		this.particleEmitter.streamParticles();
-
+		game.particles = this.particleEmitter;
 		/////////////////////////////////////////////////////////////////////
 
 
@@ -101,15 +102,15 @@ game.MainMenuState = me.ScreenObject.extend({
 		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
 			if (action == "down") {
 				me.state.current().menu.next();
-				me.audio.play("menu");
+				me.audio.play("menu", false, null, me.save.sfxVolume);
 			}
 			else if (action == "up") {
 				me.state.current().menu.previous();
-				me.audio.play("menu");
+				me.audio.play("menu", false, null, me.save.sfxVolume);
 			}
 			else if (action == "enter") {
 				me.state.current().menu.activate();
-				me.audio.play("menu");
+				me.audio.play("menu", false, null, me.save.sfxVolume);
 			}
 		});
 	},

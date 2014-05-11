@@ -201,6 +201,9 @@ var game = {
 			// (music and sound effects)
 			sound : true,
 
+			musicVolume : 1.0,
+			sfxVolume   : 0.5,
+
 			// How many times this user beat
 			// the game
 			beatGame : 0
@@ -222,7 +225,7 @@ var game = {
 		// first play the background music AND THEN
 		// enable/disable the audio based on the
 		// settings...
-//		me.audio.playTrack("dst-inertexponent");
+		me.audio.playTrack("main-menu", me.save.musicVolume);
 
 		if (! me.save.sound)
 			me.audio.disable();

@@ -87,7 +87,7 @@ game.checkpointEntity = me.ObjectEntity.extend({
 				(game.checkpoint.current !== this)) {
 
 				game.checkpoint.current.activate(false);
-				me.audio.play("checkpoint");
+				me.audio.play("checkpoint", false, null, me.save.sfxVolume);
 			}
 			game.checkpoint.current = this;
 		}
