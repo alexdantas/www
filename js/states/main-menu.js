@@ -65,12 +65,13 @@ game.MainMenuState = me.ScreenObject.extend({
 				if (me.save.stars) {
 					newLabel = "STARS:N";
 					me.save.stars = false;
-//					me.audio.disable();
+
+					// Somehow dynamically create/destroy star
 				}
 				else {
 					newLabel = "STARS:Y";
 					me.save.stars = true;
-//					me.audio.enable();
+					// Somehow dynamically create/destroy star
 				}
 
 				// That's a VERY HACKISH THING TO DO
@@ -84,7 +85,7 @@ game.MainMenuState = me.ScreenObject.extend({
 			function() {
 				// It's very ugly to directly
 				// access a game state...
-//				me.state.current().startGame();
+				me.state.change(me.state.CREDITS);
 			}
 		);
 		me.game.world.addChild(this.menu);
@@ -99,15 +100,15 @@ game.MainMenuState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.SPACE, "enter", true);
 
 		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
-			if (action == "down") {
+			if (action === "down") {
 				me.state.current().menu.next();
 				me.audio.play("menu", false, null, me.save.sfxVolume);
 			}
-			else if (action == "up") {
+			else if (action === "up") {
 				me.state.current().menu.previous();
 				me.audio.play("menu", false, null, me.save.sfxVolume);
 			}
-			else if (action == "enter") {
+			else if (action === "enter") {
 				me.state.current().menu.activate();
 				me.audio.play("menu", false, null, me.save.sfxVolume);
 			}

@@ -158,6 +158,7 @@ var game = {
 		// Each one has it's file under the `js/screens` directory
 		me.state.set(me.state.STATE_MAIN_MENU, new game.MainMenuState());
 		me.state.set(me.state.STATE_PLAY,      new game.PlayState());
+		me.state.set(me.state.STATE_CREDITS,   new game.CreditsState());
 
 		// Global transition to occur between all states
 		me.state.transition("fade", "#000000", 250);
