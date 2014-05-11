@@ -1,3 +1,8 @@
+
+/*global game,me*/
+
+game.enemy = game.enemy || {};
+
 /**
  * Simple enemy that walks left and right on a pre-determined path.
  *
@@ -6,9 +11,6 @@
  *
  * The path is specified on Tiled by the entity size.
  */
-
-/*global game,me*/
-
 game.enemyPathEntity = me.ObjectEntity.extend({
 
 	init : function(x, y, settings) {

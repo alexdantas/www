@@ -42,7 +42,7 @@ game.checkpointEntity = me.ObjectEntity.extend({
 
 		settings.image        = "checkpoint";
 		settings.spritewidth  = settings.width  = 2;
-		settings.spriteheight = settings.height = 4;
+		settings.spriteheight = settings.height = 2;
 
 		// Creating the object (melonJS-specific stuff)
 		this.parent(x, y, settings);
@@ -81,10 +81,14 @@ game.checkpointEntity = me.ObjectEntity.extend({
 		// we need to deactivate the previous
 		if (option) {
 
+			// No need to activate if this checkpoint
+			// is ourselves.
 			if ((game.checkpoint.current) &&
-				(game.checkpoint.current !== this))
-				game.checkpoint.current.activate(false);
+				(game.checkpoint.current !== this)) {
 
+				game.checkpoint.current.activate(false);
+				me.audio.play("checkpoint");
+			}
 			game.checkpoint.current = this;
 		}
 

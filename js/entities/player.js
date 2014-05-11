@@ -24,6 +24,17 @@ game.playerEntity = me.ObjectEntity.extend({
 
 		this.area = "area000";
 
+		// THIS IS A "BUG" ON MELONJS
+		// Since the player is 2 pixels large, it's
+		// collision box actually is 3 pixels large!
+		// Don't know why but I have to adjust it
+		// manually here.
+		var shape = this.getShape();
+		shape.resize(
+			shape.width - 1,
+			shape.height
+		);
+
 		// Normally things outside the screen (viewport)
 		// are not updated.
 		// It's not the case of the player.
@@ -86,6 +97,11 @@ game.playerEntity = me.ObjectEntity.extend({
 		// 	return false;
 		// }
 
+		// Just checkin'
+		if (me.input.isKeyPressed("pause")) {
+			this.pauseGame();
+		}
+
 		// Invert gravity (only possible when on the floor)
 		if (me.input.isKeyPressed("jump"))
 			this.flip();
@@ -120,11 +136,11 @@ game.playerEntity = me.ObjectEntity.extend({
 
 			// The player's falling up and just hit the ceiling
 			if ((this.gravity < 0) && (collision.y < 0))
-					this.falling = false;
+				this.falling = false;
 
 			// The player's falling down and hit the ground
 			else if ((this.gravity > 0) && (collision.y > 0))
-					this.falling = false;
+				this.falling = false;
 		}
 		else
 			this.falling = true;
@@ -163,6 +179,8 @@ game.playerEntity = me.ObjectEntity.extend({
 			this.renderable.flipY(true);
 		else
 			this.renderable.flipY(false);
+
+		me.audio.play("jump");
 	},
 
 	/**
@@ -196,6 +214,8 @@ game.playerEntity = me.ObjectEntity.extend({
 			},
 			500
 		);
+
+		me.audio.play("death");
 	},
 
 	/**
@@ -214,7 +234,7 @@ game.playerEntity = me.ObjectEntity.extend({
 		// It's (x,y) position
 		this.respawn.pos   = this.respawn.pos || new me.Vector2d(x, y);
 		this.respawn.pos.x = x;
-		this.respawn.pos.y = y;
+		this.respawn.pos.y = y - 2;
 
 		// Player can die in one map and respawn on another
 		this.respawn.area = this.area;
@@ -250,6 +270,19 @@ game.playerEntity = me.ObjectEntity.extend({
 			this.renderable.flipY(true);
 		else
 			this.renderable.flipY(false);
+	},
+
+	/**
+	 * Just guess what it does.
+	 */
+	pauseGame : function () {
+		if (me.state.isPaused()) {
+			me.state.resume();
+		}
+		else {
+			me.game.viewport.fadeIn('rgba(100, 100, 100, 100)', 100);
+			me.state.pause(true);
+		}
 	}
 });
 

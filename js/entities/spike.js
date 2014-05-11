@@ -35,7 +35,7 @@ game.spikeEntity = me.ObjectEntity.extend({
 	 * @param settings A hash with options, defined on Tiled.
 	 */
 	init : function(x, y, settings) {
-		console.log (settings);
+
 		// If Tiled doesn't specify the spike type,
 		// let's default it to pointing up.
 		this.type = settings.type || game.spike.type.TOP;
@@ -101,11 +101,11 @@ game.spikeGroupEntity = me.ObjectEntity.extend({
 	 * suicides.
 	 */
 	init : function (x, y, settings) {
-		console.log('spike-group');
+
 		// Creating all Spikes inside ourselves
 		for (var i = x; i < (settings.width + x); i++)
 			for (var j = y; j < (settings.height + y); j++) {
-				console.log('adding spike at ' + i*2 + ' ' + j*2);
+
 				// Creating on specific tile
 				var spike = me.pool.pull("spike", i*2, j*2, settings);
 

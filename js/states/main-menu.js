@@ -15,9 +15,14 @@ game.MainMenuState = me.ScreenObject.extend({
 	 */
 	onResetEvent : function() {
 
-		this.menu = new me.Menu(0, 0);
+		me.game.world.addChild(new me.SpriteObject(
+			0, 0,
+			me.loader.getImage("main-menu-bg")
+		));
+
+		this.menu = new me.Menu(2, 14);
 		this.menu.addItem(
-			"START",
+			" START",
 			function() {
 				// It's very ugly to directly
 				// access a game state...
@@ -26,19 +31,19 @@ game.MainMenuState = me.ScreenObject.extend({
 		);
 		this.menu.addItem(
 			((me.save.sound)?
-			 "SOUND:ON" :
-			 "SOUND:OFF"),
+			 "SOUND:Y" :
+			 "SOUND:N"),
 			function () {
 
 				var newLabel = "";
 
 				if (me.save.sound) {
-					newLabel = "SOUND:OFF";
+					newLabel = "SOUND:N";
 					me.save.sound = false;
 					me.audio.disable();
 				}
 				else {
-					newLabel = "SOUND:ON";
+					newLabel = "SOUND:Y";
 					me.save.sound = true;
 					me.audio.enable();
 				}
@@ -51,6 +56,39 @@ game.MainMenuState = me.ScreenObject.extend({
 		);
 		me.game.world.addChild(this.menu);
 
+
+
+
+		/////////////////////////////////////////////////////////////////////
+		// WHY IS THIS NOT WORKING?
+		/////////////////////////////////////////////////////////////////////
+
+		// Here we create a particle emitter to launch particles
+		// on the background.
+		//
+		// First, setting up how will the particles behave.
+		var particleEmitterSettings = {
+			width          : me.game.viewport.width,
+			gravity        : 1,
+			totalParticles : 200,
+			speedVariation : 3,
+			onlyInViewport : true,
+			floating       : true,
+			z : 99
+		};
+		// And then creating the thing that will emit them.
+		this.particleEmitter = new me.ParticleEmitter(0, 0, particleEmitterSettings);
+		me.game.world.addChild(this.particleEmitter);
+
+		// Launch constantly the particles, like a fountain
+		this.particleEmitter.streamParticles();
+
+		/////////////////////////////////////////////////////////////////////
+
+
+
+
+
 		// Checking out the user input:
 		// control the menu with arrow keys and
 		// select with Enter.
@@ -61,14 +99,25 @@ game.MainMenuState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.SPACE, "enter", true);
 
 		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
-			if      (action == "down")  me.state.current().menu.next();
-			else if (action == "up")    me.state.current().menu.previous();
-			else if (action == "enter") me.state.current().menu.activate();
+			if (action == "down") {
+				me.state.current().menu.next();
+				me.audio.play("menu");
+			}
+			else if (action == "up") {
+				me.state.current().menu.previous();
+				me.audio.play("menu");
+			}
+			else if (action == "enter") {
+				me.state.current().menu.activate();
+				me.audio.play("menu");
+			}
 		});
 	},
 
+	/**
+	 * Confirms the action to start the game.
+	 */
 	startGame : function() {
-		// Play some audio before startin'
 
 		me.state.change(me.state.STATE_PLAY);
 	},

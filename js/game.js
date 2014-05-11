@@ -172,11 +172,12 @@ var game = {
 		// 3. If you plan on creating more than one of those,
 		//    set this as true to speed things up.
 		//
-		me.pool.register("player",      game.playerEntity);
-		me.pool.register("spike",       game.spikeEntity,      true);
-		me.pool.register("spike-group", game.spikeGroupEntity, true);
-		me.pool.register("checkpoint",  game.checkpointEntity, true);
-		me.pool.register("enemy-path",  game.enemyPathEntity,  true);
+		me.pool.register("player",       game.playerEntity);
+		me.pool.register("spike",        game.spikeEntity,       true);
+		me.pool.register("spike-group",  game.spikeGroupEntity,  true);
+		me.pool.register("checkpoint",   game.checkpointEntity,  true);
+		me.pool.register("enemy-path",   game.enemyPathEntity,   true);
+		me.pool.register("enemy-bouncy", game.enemyBouncyEntity, true);
 
 		// Defining some custom constants to uniquely
 		// identify some entities
@@ -185,8 +186,8 @@ var game = {
 
 		// Global fonts we'll use to draw text
 		// (see `resources.js`)
-		game.font_white = new me.BitmapFont("font-white", 3);
-		game.font_black = new me.BitmapFont("font-black", 3);
+		game.font_white = new me.BitmapFont("font-white", {x: 4, y:3});
+		game.font_black = new me.BitmapFont("font-black", {x: 4, y:3});
 
 		// Default settings for the whole game.
 		// If we already have saved these settings,

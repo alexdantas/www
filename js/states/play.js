@@ -49,6 +49,9 @@ game.PlayState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.Z,     "jump", true);
 		me.input.bindKey(me.input.KEY.X,     "jump", true);
 
+		me.input.bindKey(me.input.KEY.ESC,   "pause", true);
+		me.input.bindKey(me.input.KEY.ENTER, "pause", true);
+
 		// To make able to control the game with the mouse
 		// we must watch for those events (mouse up and down)
 		//
@@ -82,14 +85,7 @@ game.PlayState = me.ScreenObject.extend({
 	 */
 	onLevelLoaded : function onLevelLoaded() {
 
-		// Here's a catch
-		//
-		// Normally on melonJS, the Tiled's collision
-		// layer would be invisible.
-		// That's not so here - the collision layer is the
-		// same as the foreground.
-		// So.. yeah
-		me.game.currentLevel.getLayerByName("collision").setOpacity(1);
+
 	},
 
 	/**
@@ -156,6 +152,8 @@ game.PlayState = me.ScreenObject.extend({
 
 		// remove the HUD from the game world
 		me.game.world.removeChild(this.HUD);
+		me.game.world.removeChild(this.particleEmitter);
+		me.game.world.removeChild(this.particleEmitter.container);
 
 		// Supporting both arrow keys and WASD
 		me.input.unbindKey(me.input.KEY.LEFT,  "left");
@@ -171,6 +169,9 @@ game.PlayState = me.ScreenObject.extend({
 		me.input.unbindKey(me.input.KEY.SPACE, "jump");
 		me.input.unbindKey(me.input.KEY.Z,     "jump");
 		me.input.unbindKey(me.input.KEY.X,     "jump");
+
+		me.input.unbindKey(me.input.KEY.ESC,   "pause");
+		me.input.unbindKey(me.input.KEY.ENTER, "pause");
 	}
 });
 

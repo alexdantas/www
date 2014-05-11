@@ -43,9 +43,19 @@ game.resources = [
 
 	// Backgrounds
 	{
+		name : "background",
+		type : "image",
+		src  : "data/image/background.png"
+	},
+	{
 		name : "loading-bg",
 		type : "image",
 		src  : "data/image/loading.png"
+	},
+	{
+		name : "main-menu-bg",
+		type : "image",
+		src  : "data/image/main-menu.png"
 	},
 
 	// Font
@@ -65,6 +75,32 @@ game.resources = [
 		name : "area000",
 		type : "tmx",
 		src  :  "data/map/area000.tmx"
+	},
+
+	// Sound Effects
+	{
+		name    : "menu",
+		type    : "audio",
+		src     : "data/audio/sfx/",
+		channel : 2
+	},
+	{
+		name    : "jump",
+		type    : "audio",
+		src     : "data/audio/sfx/",
+		channel : 2
+	},
+	{
+		name    : "death",
+		type    : "audio",
+		src     : "data/audio/sfx/",
+		channel : 2
+	},
+	{
+		name    : "checkpoint",
+		type    : "audio",
+		src     : "data/audio/sfx/",
+		channel : 2
 	}
 ];
 
