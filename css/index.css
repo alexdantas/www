@@ -5,7 +5,7 @@
  * Note: make sure to include `normalize.css` before this!
  */
 body {
-	background-color: #aaa;
+	background-color: #000;
 	color: #fff;
 
 	/* Allow mouse dragging. */
@@ -36,7 +36,26 @@ body {
 	image-rendering: optimize-contrast;
 	-ms-interpolation-mode: nearest-neighbor;
 }
+
+/* Now, hacks to make the description look good */
+
 #description {
-	text-align: center;
+	position:absolute;
+	bottom:0px;
+	width:100%;
+	margin: 0;
+	left: 0;
+	height:auto;
+	background:#111;
+}
+#description h1, #description h5 {
+	margin: 0;
+}
+#description ul {
+	list-style-type: square
+}
+#description div {
+	margin-left : 1%;
+	width: 80%;
 }
 

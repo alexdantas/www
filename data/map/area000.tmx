@@ -249,6 +249,11 @@
  </objectgroup>
  <objectgroup color="#ffff00" name="player" width="96" height="96">
   <object name="player" x="106" y="78" width="2" height="4"/>
+  <object name="alert" x="66" y="60" width="28" height="2">
+   <properties>
+    <property name="text" value="Congrats, you beat the beta version of www! Expect more levels soon."/>
+   </properties>
+  </object>
  </objectgroup>
  <layer name="collision" width="96" height="96">
   <data encoding="base64">
