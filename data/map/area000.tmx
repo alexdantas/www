@@ -47,11 +47,6 @@
   </data>
  </layer>
  <objectgroup name="checkpoints" width="96" height="16">
-  <object name="checkpoint" x="14" y="28" width="2" height="4">
-   <properties>
-    <property name="type" value="bottom"/>
-   </properties>
-  </object>
   <object name="checkpoint" x="38" y="28" width="2" height="4">
    <properties>
     <property name="type" value="bottom"/>

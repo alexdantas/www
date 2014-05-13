@@ -48,10 +48,6 @@ game.playerEntity = me.ObjectEntity.extend({
 
 		this.renderable.setCurrentAnimation("standing");
 
-		// Saving our current position so when
-		// we die we return here.
-		this.checkpoint();
-
 		// Gravity is the key of this game.
 		//
 		// @note Independently of this gravity, the player's
@@ -59,6 +55,11 @@ game.playerEntity = me.ObjectEntity.extend({
 		//       what we set up there.
 		this.gravity         = me.sys.gravity;
 		this.absoluteGravity = Math.abs(this.gravity);
+
+		// Saving our current position so when
+		// we die we return here.
+		// (simulating a checkpoint)
+		this.checkpoint(this.pos.x, this.pos.y+2, game.checkpoint.type.BOTTOM);
 
 		// Keeping a global reference so we can acccess
 		// the player anywhere.
@@ -234,7 +235,9 @@ game.playerEntity = me.ObjectEntity.extend({
 		// It's (x,y) position
 		this.respawn.pos   = this.respawn.pos || new me.Vector2d(x, y);
 		this.respawn.pos.x = x;
-		this.respawn.pos.y = y - 2;
+		this.respawn.pos.y = ((checkpointType === game.checkpoint.type.BOTTOM) ?
+							  y - 2 :
+							  y);
 
 		// Player can die in one map and respawn on another
 		this.respawn.area = this.area;
