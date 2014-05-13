@@ -137,6 +137,18 @@ game.playerEntity = me.ObjectEntity.extend({
 			// The player's falling down and hit the ground
 			else if ((this.gravity > 0) && (collision.y > 0))
 				this.falling = false;
+
+			// NOTE: This is needed, otherwise the collision
+			//       system gets screwed up when the player
+			//       is upside-down.
+			//       That's because although the player is
+			//       drawn with pixels, it's position can be
+			//       between pixels (like, x=1.333335).
+			//       When the player is inverted, it's y
+			//       position used to be very strange, leading
+			//       to awkward collisions.
+			this.pos.y = Math.floor(this.pos.y);
+
 		}
 		else
 			this.falling = true;
