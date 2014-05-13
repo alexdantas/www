@@ -46,14 +46,19 @@ game.PlayState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.A,     "left");
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
 		me.input.bindKey(me.input.KEY.D,     "right");
-		me.input.bindKey(me.input.KEY.DOWN,  "down");
-		me.input.bindKey(me.input.KEY.S,     "down");
 
+		// Let's be redundant!
+		// Lots of keys to invert the gravity
 		me.input.bindKey(me.input.KEY.UP,    "jump", true);
 		me.input.bindKey(me.input.KEY.W,     "jump", true);
 		me.input.bindKey(me.input.KEY.SPACE, "jump", true);
+		me.input.bindKey(me.input.KEY.DOWN,  "jump", true);
+		me.input.bindKey(me.input.KEY.S,     "jump", true);
 		me.input.bindKey(me.input.KEY.Z,     "jump", true);
 		me.input.bindKey(me.input.KEY.X,     "jump", true);
+
+		// Suicide key (a.k.a. PANIC BUTTON)
+		me.input.bindKey(me.input.KEY.K, "die", true);
 
 		me.input.bindKey(me.input.KEY.ESC,   "pause", true);
 		me.input.bindKey(me.input.KEY.ENTER, "pause", true);
@@ -162,23 +167,23 @@ game.PlayState = me.ScreenObject.extend({
 
 		this.destroyStars();
 
-		// Supporting both arrow keys and WASD
-		me.input.unbindKey(me.input.KEY.LEFT,  "left");
-		me.input.unbindKey(me.input.KEY.A,     "left");
-		me.input.unbindKey(me.input.KEY.RIGHT, "right");
-		me.input.unbindKey(me.input.KEY.D,     "right");
-		me.input.unbindKey(me.input.KEY.DOWN,  "down");
-		me.input.unbindKey(me.input.KEY.S,     "down");
-		me.input.unbindKey(me.input.KEY.SPACE, "jump");
+		me.input.unbindKey(me.input.KEY.LEFT);
+		me.input.unbindKey(me.input.KEY.A);
+		me.input.unbindKey(me.input.KEY.RIGHT);
+		me.input.unbindKey(me.input.KEY.D);
 
-		me.input.unbindKey(me.input.KEY.UP,    "jump");
-		me.input.unbindKey(me.input.KEY.W,     "jump");
-		me.input.unbindKey(me.input.KEY.SPACE, "jump");
-		me.input.unbindKey(me.input.KEY.Z,     "jump");
-		me.input.unbindKey(me.input.KEY.X,     "jump");
+		me.input.unbindKey(me.input.KEY.DOWN);
+		me.input.unbindKey(me.input.KEY.S);
+		me.input.unbindKey(me.input.KEY.UP);
+		me.input.unbindKey(me.input.KEY.W);
+		me.input.unbindKey(me.input.KEY.SPACE);
+		me.input.unbindKey(me.input.KEY.Z);
+		me.input.unbindKey(me.input.KEY.X);
 
-		me.input.unbindKey(me.input.KEY.ESC,   "pause");
-		me.input.unbindKey(me.input.KEY.ENTER, "pause");
+		me.input.unbindKey(me.input.KEY.K);
+
+		me.input.unbindKey(me.input.KEY.ESC);
+		me.input.unbindKey(me.input.KEY.ENTER);
 	},
 
 	initializeStars : function() {

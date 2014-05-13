@@ -20,7 +20,7 @@ game.MainMenuState = me.ScreenObject.extend({
 			me.loader.getImage("main-menu-bg")
 		));
 
-		this.menu = new me.Menu(0, 12);
+		this.menu = new me.Menu(1, 12);
 		this.menu.addItem(
 			"START",
 			function() {

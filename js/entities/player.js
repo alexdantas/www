@@ -113,7 +113,7 @@ game.playerEntity = me.ObjectEntity.extend({
 		else                                     this.vel.x  = 0;
 
 		// DEBUG
-		if (me.input.isKeyPressed("down")) {
+		if (me.input.isKeyPressed("die")) {
 			this.die();
 			return false;
 		}
