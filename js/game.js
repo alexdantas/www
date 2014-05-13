@@ -179,6 +179,7 @@ var game = {
 		me.pool.register("checkpoint",   game.checkpointEntity,  true);
 		me.pool.register("enemy-path",   game.enemyPathEntity,   true);
 		me.pool.register("enemy-bouncy", game.enemyBouncyEntity, true);
+		me.pool.register("message",      game.messageEntity,     true);
 
 		// Defining some custom constants to uniquely
 		// identify some entities

@@ -99,6 +99,7 @@ game.MainMenuState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.ENTER, "enter", true);
 		me.input.bindKey(me.input.KEY.SPACE, "enter", true);
 
+		// Controlling the menu (up, down and activate)
 		this.handler = me.event.subscribe(me.event.KEYDOWN, function (action, keyCode, edge) {
 			if (action === "down") {
 				me.state.current().menu.next();

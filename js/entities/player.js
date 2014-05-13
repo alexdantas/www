@@ -98,11 +98,6 @@ game.playerEntity = me.ObjectEntity.extend({
 		// 	return false;
 		// }
 
-		// Just checkin'
-		if (me.input.isKeyPressed("pause")) {
-			this.pauseGame();
-		}
-
 		// Invert gravity (only possible when on the floor)
 		if (me.input.isKeyPressed("jump"))
 			this.flip();
@@ -273,52 +268,6 @@ game.playerEntity = me.ObjectEntity.extend({
 			this.renderable.flipY(true);
 		else
 			this.renderable.flipY(false);
-	},
-
-	/**
-	 * Just guess what it does.
-	 */
-	pauseGame : function () {
-
-		// Creates a thing that will show "PAUASED" and keep checking
-		// if the user pressed the pause key yet again
-		me.game.world.addChild(new (me.Renderable.extend({
-
-			init : function () {
-
-				this.parent(new me.Vector2d(5, 0),
-							me.game.viewport.width, me.game.viewport.height);
-
-				// Only thing in the game that does this
-				this.updateWhenPaused = true;
-
-				// Need to draw on top of most things.
-				this.z = 30;
-				this.floating = true;
-
-				me.state.pause(true);
-			},
-
-			update : function (dt) {
-				if ((me.input.isKeyPressed("pause")) ||
-					(! me.state.isPaused())) { // Somehow things screwed
-					                           // up and the game unpaused
-					                           // itself
-
-					// Unpause!
-					me.state.resume();
-					me.game.world.removeChild(this);
-					return false;
-				}
-				else
-					return true;
-			},
-
-			draw : function (context) {
-				game.font_white.draw(context, "PAUSED", this.pos.x, this.pos.y);
-			}
-		})));
 	}
-
 });
 

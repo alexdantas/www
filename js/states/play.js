@@ -63,6 +63,10 @@ game.PlayState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.ESC,   "pause", true);
 		me.input.bindKey(me.input.KEY.ENTER, "pause", true);
 
+		// Also creating the thing that will pause the
+		// game for us (if the user presses "pause")
+		me.game.world.addChild(new game.pauseHandlerEntity());
+
 		// To make able to control the game with the mouse
 		// we must watch for those events (mouse up and down)
 		//
@@ -184,6 +188,8 @@ game.PlayState = me.ScreenObject.extend({
 
 		me.input.unbindKey(me.input.KEY.ESC);
 		me.input.unbindKey(me.input.KEY.ENTER);
+
+		me.event.unsubscribe(this.handler);
 	},
 
 	initializeStars : function() {
