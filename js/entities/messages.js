@@ -20,7 +20,12 @@ game.messageEntity = me.Renderable.extend({
 		this.parent(new me.Vector2d(x, y), 0, 0);
 
 		// The text that will be shown is defined on Tiled
-		this.text = settings.text;
+		// Since you can specify line breaks (\n), let's
+		// split the text into lines here:
+		//
+		// @note Why the double \\ ? On the `states/credits.js`
+		//       file I don't need it, just a simple '\n'!
+		this.text = settings.text.split('\\n');
 	},
 
 	update : function(delta) {
@@ -38,7 +43,16 @@ game.messageEntity = me.Renderable.extend({
 		this.width  = textScreenSize.width;
 		this.height = textScreenSize.height;
 
-		game.font_white.draw(context, this.text, this.pos.x, this.pos.y);
+		// Drawing line by line
+		for (var i = 0; i < this.text.length; i++) {
+
+			game.font_white.draw(
+				context,
+				this.text[i],
+				this.pos.x,
+				this.pos.y + 4*i); // TEXT LINE SIZE, CHANGE HERE
+			                       // IF YOU EVER CHANGE THE FONT
+		}
 	}
 });
 
