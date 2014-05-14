@@ -1,10 +1,10 @@
 {
 	"name"        : "www",
-	"version"     : "0.0.1",
+	"version"     : "0.5.3",
 	"author"      : "Alexandre Dantas",
-	"description" : "32x32-pixel clone of the game VVVVVV",
+	"description" : "Low-resolution clone of the game VVVVVV",
 
-	"repository" : "https://github.com/alexdantas/",
+	"repository" : "https://github.com/alexdantas/www",
 
 	"main"    : "index.html",
 	"window"  : {
