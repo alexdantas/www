@@ -62,6 +62,11 @@ game.resources = [
 		type : "image",
 		src  : "data/image/main-menu.png"
 	},
+	{
+		name : "logo",
+		type : "image",
+		src  : "data/image/logo.png"
+	},
 
 	// Font
 	{
@@ -73,6 +78,11 @@ game.resources = [
 		name: "font-black",
 		type: "image",
 		src:  "data/image/font/black.png"
+	},
+	{
+		name: "font-blue",
+		type: "image",
+		src:  "data/image/font/blue.png"
 	},
 
 	// Maps

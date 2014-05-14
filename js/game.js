@@ -191,6 +191,7 @@ var game = {
 		// (see `resources.js`)
 		game.font_white = new me.BitmapFont("font-white", {x: 4, y:3});
 		game.font_black = new me.BitmapFont("font-black", {x: 4, y:3});
+		game.font_blue  = new me.BitmapFont("font-blue",  {x: 4, y:3});
 
 		// Default settings for the whole game.
 		// If we already have saved these settings,
@@ -253,6 +254,87 @@ var game = {
 		game.titleElement = game.titleElement || document.getElementsByTagName("title")[0];
 
 		game.titleElement.innerHTML = title;
+	},
+
+
+
+
+
+
+	// THESE ARE HERE BECAUSE I COULDN'T FIND A BETTER PLACE
+	//
+	// TODO: Figure out a best way to put them, since stars
+	//       can be created and deactivated at any state
+
+
+
+
+	/**
+	 * Creates/Destroys the background thing that spawns random
+	 * stars all around.
+	 *
+	 * You can call it multiple times without worrying.
+	 *
+	 * See file `entities/star-background.js`.
+	 *
+	 * @note If you want to have it between states, you MUST
+	 *       call `game.enableStars(false)` when at
+	 *       `onDestroyEvent` and then `game.enableStars(true)`
+	 *       when at `onResetEvent`!
+	 */
+	enableStars : function(option) {
+
+		// Avoiding re-initializing stuff.
+		game.stars = game.stars || null;
+
+		// Do I really need to double check this?
+		// if (! me.save.stars) {
+		// 	option = false;
+		// }
+
+		if (option) {
+
+			// Will create stars
+			//
+			// But of course, won't do anything if they
+			// already exist.
+			if (game.stars !== null)
+				return;
+
+			game.stars = new game.starBackground();
+
+			// How will this be drawn on top of other stuff.
+			//
+			// I had to adjust it so it could be between the
+			// map's background and the map's tiles.
+			var z = 2;
+
+			// Adding the particle system
+			// (and the particles themselves) to the game.
+			me.game.world.addChild(game.stars, z);
+			me.game.world.addChild(game.stars.container, z);
+
+			// Finally, command the system to launch constantly
+			// the particles, like a fountain
+			game.stars.streamParticles();
+		}
+		else {
+
+			// Will destroy stars
+			//
+			// But of course won't do anything if they
+			// were already destroyed
+			if (game.stars === null)
+				return;
+
+			game.stars.stopStream();
+
+			me.game.world.removeChild(game.stars.container);
+			me.game.world.removeChild(game.stars);
+
+			game.stars = null;
+
+		}
 	}
 };
 

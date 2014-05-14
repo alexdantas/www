@@ -73,7 +73,7 @@ me.MenuItem = me.Renderable.extend({
 
 		this.font = ((this.selected) ?
 					 game.font_white :
-					 game.font_black);
+					 game.font_blue);
 	},
 
 	/**

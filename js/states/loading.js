@@ -105,8 +105,8 @@ game.CustomLoadingScreen = me.ScreenObject.extend({
 		// - Vector2d(padding x, padding y)
 		//
 		this.progressBar = new me.ProgressBar(
-			new me.Vector2d(0,    me.game.viewport.height-4),
-			me.video.getWidth(),  4,
+			new me.Vector2d(3,    5),
+			me.game.viewport.width-7,  4,
 			new me.Vector2d(0,    1)
 		);
 		this.progressBar.setColors('green', 'black');

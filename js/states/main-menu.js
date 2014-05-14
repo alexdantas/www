@@ -18,7 +18,14 @@ game.MainMenuState = me.ScreenObject.extend({
 		me.game.world.addChild(new me.SpriteObject(
 			0, 0,
 			me.loader.getImage("main-menu-bg")
-		));
+		), -1);
+
+
+		// This creates the background that spawns
+		// random stars, to keep things animated.
+		// It should be between the background and
+		// the menu.
+		game.enableStars(me.save.stars);
 
 		this.menu = new me.Menu(1, 12);
 		this.menu.addItem(
@@ -66,12 +73,15 @@ game.MainMenuState = me.ScreenObject.extend({
 					newLabel = "STARS:N";
 					me.save.stars = false;
 
-					// Somehow dynamically create/destroy star
+					// Dynamically destroying stars
+					game.enableStars(false);
 				}
 				else {
 					newLabel = "STARS:Y";
 					me.save.stars = true;
-					// Somehow dynamically create/destroy star
+
+					// Dynamically creating stars
+					game.enableStars(true);
 				}
 
 				// That's a VERY HACKISH THING TO DO
@@ -88,7 +98,13 @@ game.MainMenuState = me.ScreenObject.extend({
 				me.state.change(me.state.CREDITS);
 			}
 		);
-		me.game.world.addChild(this.menu);
+		me.game.world.addChild(this.menu, 3);
+
+		// Le logo
+		me.game.world.addChild(new me.SpriteObject(
+			0, 0,
+			me.loader.getImage("logo")
+		), 4);
 
 		// Checking out the user input:
 		// control the menu with arrow keys and
@@ -135,6 +151,13 @@ game.MainMenuState = me.ScreenObject.extend({
 
 		me.game.world.removeChild(this.menu);
 		me.event.unsubscribe(this.handler);
+
+
+		// Independently of having enabled stars or not
+		// we should call this when the state finishes.
+		// Remember to re-enable it on the next state,
+		// though!
+		game.enableStars(false);
 	}
 });
 
