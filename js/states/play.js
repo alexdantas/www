@@ -77,6 +77,7 @@ game.PlayState = me.ScreenObject.extend({
 
 		// Also creating the thing that will pause the
 		// game for us (if the user presses "pause")
+		if (! game.pauseHandler)
 		me.game.world.addChild(new game.pauseHandlerEntity());
 
 		// To make able to control the game with the mouse
@@ -202,8 +203,6 @@ game.PlayState = me.ScreenObject.extend({
 
 		me.input.unbindKey(me.input.KEY.ESC);
 		me.input.unbindKey(me.input.KEY.ENTER);
-
-		me.event.unsubscribe(this.handler);
 
 		// Independently of having enabled stars or not
 		// we should call this when the state finishes.

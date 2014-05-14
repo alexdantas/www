@@ -109,7 +109,7 @@ game.MainMenuState = me.ScreenObject.extend({
 			function() {
 				// It's very ugly to directly
 				// access a game state...
-				me.state.change(me.state.CREDITS);
+				me.state.change(me.state.STATE_CREDITS);
 			}
 		);
 		me.game.world.addChild(this.menu, 3);
