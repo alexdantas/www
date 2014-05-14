@@ -24,10 +24,45 @@ game.pauseHandlerEntity = me.Renderable.extend({
 	 */
 	init : function () {
 
+		// Bleh.
 		this.parent(new me.Vector2d(5, 0),
 					me.game.viewport.width, me.game.viewport.height);
 
-		// Aww yeah
+
+		// This is very important
+		//
+		// We're attaching callbacks to know when the game
+		// loses focus (user clicked elsewhere, changed
+		// browser tab, changed OS window...)
+		//
+		// To do so we MUST remove melonJS's default way
+		// of handling this.
+		//
+		// By default melonJS simply calls `me.state.pause()`
+		// but since we're showing a Pause Menu and stuff
+		// we're doing like this:
+		//
+		// - When we lose focus, pretend the user has hit the
+		//   "pause" key (on this case, ESC).
+		//
+		// Got it?
+		// First, removing melonJS' handlers.
+		me.sys.stopOnBlur    = false;
+		me.sys.pauseOnBlur   = false;
+		me.sys.resumeOnFocus = false;
+
+		// Then, attaching our own
+		// for when losing focus...
+        window.addEventListener("blur", function () {
+
+			// Remember to change this if you ever decide to
+			// NOT use ESC as a "pause" key.
+			me.input.triggerKeyEvent(me.input.KEY.ESC, true);
+
+        }, false);
+
+
+		// Aww yeah, now we're talkin'
 		this.updateWhenPaused = true;
 
 		// Need to draw on top of most things.
@@ -97,9 +132,10 @@ game.pauseHandlerEntity = me.Renderable.extend({
 					game.pauseHandler.enableMenu(false);
 				}
 				else {
+					game.pauseHandler.enableMenu(true);
 					me.state.pause(true);
 					me.audio.pauseTrack();
-					game.pauseHandler.enableMenu(true);
+
 				}
 			}
 
@@ -129,7 +165,7 @@ game.pauseHandlerEntity = me.Renderable.extend({
 		);
 
 		if (this.menu)
-		this.menu.draw(context, true);
+			this.menu.draw(context, true);
 	},
 
 	/**

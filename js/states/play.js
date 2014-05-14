@@ -77,7 +77,6 @@ game.PlayState = me.ScreenObject.extend({
 
 		// Also creating the thing that will pause the
 		// game for us (if the user presses "pause")
-		if (! game.pauseHandler)
 		me.game.world.addChild(new game.pauseHandlerEntity());
 
 		// To make able to control the game with the mouse
