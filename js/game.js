@@ -206,7 +206,7 @@ var game = {
 			sound : true,
 
 			musicVolume : 1.0,
-			sfxVolume   : 0.5,
+			sfxVolume   : 0.2,
 
 			// If we're going to show the stars
 			// at the background

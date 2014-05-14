@@ -93,6 +93,10 @@ game.PlayState = me.ScreenObject.extend({
 			game.player.pos.x / 32,
 			game.player.pos.y / 32
 		);
+
+		// Yay, let's play some sound!
+		me.audio.stopTrack();
+		me.audio.playTrack("area000", me.save.musicVolume);
 	},
 
 	/**

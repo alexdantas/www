@@ -99,6 +99,12 @@ game.resources = [
 		src     : "data/audio/bgm/",
 		channel : 1
 	},
+	{
+		name    : "area000",
+		type    : "audio",
+		src     : "data/audio/bgm/",
+		channel : 1
+	},
 
 	// Sound Effects
 	{

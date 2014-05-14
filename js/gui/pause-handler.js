@@ -36,10 +36,14 @@ game.pauseHandlerEntity = me.Renderable.extend({
 
 			if (action === "pause") {
 
-				if (me.state.isPaused())
+				if (me.state.isPaused()) {
 					me.state.resume();
-				else
+					me.audio.resumeTrack();
+				}
+				else {
 					me.state.pause(true);
+					me.audio.pauseTrack();
+				}
 			}
 		});
 	},
