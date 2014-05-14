@@ -15,6 +15,20 @@ game.MainMenuState = me.ScreenObject.extend({
 	 */
 	onResetEvent : function() {
 
+		// When the game goes out of focus
+		// (user switched tabs, clicked elsewhere) it
+		// automatically pauses.
+		//
+		// This variable tells melonJS to resume the
+		// game when the focus is gained back.
+		//
+		// Be warned, though, that there are cases when
+		// you'd not want to automatically resume - that's
+		// for instance on the `play` state.
+		me.sys.resumeOnFocus = true;
+
+		// Creating the Background image
+		// for the main menu.
 		me.game.world.addChild(new me.SpriteObject(
 			0, 0,
 			me.loader.getImage("main-menu-bg")

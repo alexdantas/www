@@ -17,6 +17,16 @@ game.PlayState = me.ScreenObject.extend({
 	 */
 	onResetEvent : function() {
 
+		// When the game goes out of focus
+		// (user switched tabs, clicked elsewhere) it
+		// automatically pauses.
+		//
+		// This variable tells melonJS to NOT resume the
+		// game when the focus is gained back.
+		// You have to manually press ENTER to resume
+		// the game.
+		me.sys.resumeOnFocus = false;
+
 		// Call `this.onLevelLoaded()` every time
 		// a new level is loaded.
 		me.game.onLevelLoaded = this.onLevelLoaded.bind(this);
