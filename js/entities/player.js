@@ -40,8 +40,11 @@ game.playerEntity = me.ObjectEntity.extend({
 		// It's not the case of the player.
 		this.alwaysUpdate = true;
 
-		// Initial speed when walking
-		this.setVelocity(0.19, 0.39);
+		// Speed when running
+		this.setVelocity(0.29, 0.39);
+
+		// Speed when walking (holding SHIFT)
+		this.walkVelocity = new me.Vector2d(0.19, 0.39);
 
 		this.renderable.addAnimation("standing", [0]);
 		this.renderable.addAnimation("dying",    [1]);
@@ -98,15 +101,23 @@ game.playerEntity = me.ObjectEntity.extend({
 		// 	return false;
 		// }
 
+		// Now we'll handle input!
+		//
 		// Invert gravity (only possible when on the floor)
 		if (me.input.isKeyPressed("jump"))
 			this.flip();
 
-		// Walk!
-		var xSpeedIncrease = this.accel.x * me.timer.tick;
-		if      (me.input.isKeyPressed("left"))  this.vel.x -= xSpeedIncrease;
-		else if (me.input.isKeyPressed("right")) this.vel.x += xSpeedIncrease;
-		else                                     this.vel.x  = 0;
+		// Let's see if the player will walk slowly or run
+		this.walking = me.input.keyStatus("walk");
+
+		// Run (or Walk)!
+		var xSpeedIncrease = ((this.walking) ?
+							  this.walkVelocity.x :
+							  this.accel.x) * me.timer.tick;
+
+		if      (me.input.isKeyPressed("left"))  this.vel.x = -xSpeedIncrease;
+		else if (me.input.isKeyPressed("right")) this.vel.x = xSpeedIncrease;
+		else                                     this.vel.x = 0;
 
 		// DEBUG
 		if (me.input.isKeyPressed("die")) {

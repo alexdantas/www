@@ -59,6 +59,9 @@ game.PlayState = me.ScreenObject.extend({
 		me.input.bindKey(me.input.KEY.RIGHT, "right");
 		me.input.bindKey(me.input.KEY.D,     "right");
 
+		// Key to allow the player to walk slowly
+		me.input.bindKey(me.input.KEY.SHIFT, "walk", false, true);
+
 		// Let's be redundant!
 		// Lots of keys to invert the gravity
 		me.input.bindKey(me.input.KEY.UP,    "jump", true);
@@ -189,6 +192,7 @@ game.PlayState = me.ScreenObject.extend({
 		me.input.unbindKey(me.input.KEY.A);
 		me.input.unbindKey(me.input.KEY.RIGHT);
 		me.input.unbindKey(me.input.KEY.D);
+		me.input.unbindKey(me.input.KEY.SHIFT);
 
 		me.input.unbindKey(me.input.KEY.DOWN);
 		me.input.unbindKey(me.input.KEY.S);
