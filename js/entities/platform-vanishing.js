@@ -37,6 +37,15 @@ game.platform.vanishing = {
 	vanished : [],
 
 	/**
+	 * Contains all platforms that are disappearing
+	 * right now.
+	 *
+	 * This is necessary so we can restore them as
+	 * soon as the player dies.
+	 */
+	vanishing : [],
+
+	/**
 	 * Makes all the vanishing platforms be shown
 	 * again.
 	 *
@@ -46,12 +55,26 @@ game.platform.vanishing = {
 	 */
 	showAll : function () {
 
+		// Oops! Some platforms are still disappearing!
+		// Let's force them to vanish right now then
+		for (var j = 0; j < game.platform.vanishing.vanishing.length; j++) {
+			var current = game.platform.vanishing.vanishing[j];
+
+			if (current.tween)
+				current.tween.stop();
+
+			current.vanishing = false;
+			current.vanish();
+		}
+
+		// And finally show all platforms that vanished
 		for (var i = 0; i < game.platform.vanishing.vanished.length; i++)
 			game.platform.vanishing.vanished[i].show();
 
 		// Since they're all shown right now,
-		// clear this container.
-		game.platform.vanishing.vanished = [];
+		// clear these containers
+		game.platform.vanishing.vanished  = [];
+		game.platform.vanishing.vanishing = [];
 
 		// As a side note, I saw some arguing on what is
 		// faster for deleting arrays.
@@ -82,6 +105,10 @@ game.platformVanishingEntity = game.platformEntity.extend({
 		this.vanishing = false;
 		this.vanished  = false;
 
+		// The thing that will animate the
+		// platform. More info on this below.
+		this.tween = null;
+
 		this.type = me.game.PLATFORM_VANISHING_OBJECT;
 	},
 
@@ -90,10 +117,16 @@ game.platformVanishingEntity = game.platformEntity.extend({
 	 *
 	 * Probably the player, so let's start vanishing!
 	 */
-	onCollision : function(res, obj) {
+	onCollision : function(collision, other) {
 
-		if (obj.type === me.game.PLAYER_OBJECT)
-			this.startVanishing();
+		// Only vanish if it's the Player
+		if (other.type === me.game.PLAYER_OBJECT)
+
+			// Only vanish if collided with the head
+			// or butt - never on the Player's sides.
+			if (collision.y != 0)
+
+				this.startVanishing();
 	},
 
 	/**
@@ -113,41 +146,53 @@ game.platformVanishingEntity = game.platformEntity.extend({
 		else
 			this.vanishing = true;
 
-		var originalOpacity  = this.renderable.getOpacity();
-
 		// Making the platform slowly vanish
 		// (using a Tween to change opacity from 1.0 to 0.0)
 		//
-		// I'm sending `this` as `platform` so I can access
-		// myself inside Tween.
+		// This part is kinda tricky; proceed with care.
 		//
-		// I know it seems confusing, but inside Tween's
-		// functions, `this` refers to the Tween itself.
-		// So there's no way to access the platform unless
-		// we send it like this:
-		var tween = new me.Tween({
+		// Inside this Tween object, we have callbacks
+		// like `onStart`, `onUpdate` and `onComplete`.
+		// Inside them, `this` refers to the Tween, NOT to
+		// the platform!
+		//
+		// So when creating the Tween, I'll add a reference
+		// to the platform.
+		// This way I can access the platform inside the Tween.
+		//
+		this.tween = new me.Tween({
 
 			// Reference to ourselves inside the Tween
 			platform : this,
 
 			// The thing that will change with time
-			opacity: originalOpacity
+			// (also known as "transparency")
+			opacity: this.renderable.getOpacity()
 		});
 
 		// Now we configure how the Tween will happen.
-		tween
+		this.tween
 			.to({ opacity: 0 }, game.platform.vanishing.timeout)
 
 			// The way it's going to vanish...
-			// nothing fancy
-			.easing(me.Tween.Easing.Linear.None)
+			// Ideally it'd appear to disappear quickly
+			// but leave a decent time gap for the player to react
+			.easing(me.Tween.Easing.Quartic.Out)
+
+			// Called right when the Tween is about to start
+			.onStart(function() {
+
+				// Adding the platform to the list of
+				// platforms that are currently disappearing
+				game.platform.vanishing.vanishing.push(this.platform);
+			})
 
 			// Called on each update of the tween
+			// (multiple times per sec)
 			.onUpdate(function() {
 
-				// Note that `this` here refers to the Tween's
-				// current value - not the platform's!
 				this.platform.renderable.setOpacity(this.opacity);
+
 			})
 
 			// Same as calling `this.vanish()`, but on another
@@ -156,6 +201,7 @@ game.platformVanishingEntity = game.platformEntity.extend({
 
 				this.platform.vanishing = false;
 				this.platform.vanish();
+
 			})
 
 			// Let's do it!
