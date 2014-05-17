@@ -139,6 +139,10 @@ game.playerEntity = me.ObjectEntity.extend({
 			return false;
 		}
 
+		// Need to call this so we can update
+		// the movement, animation and stuff
+		this.parent(delta);
+
 		// Moving Platforms!
 		// Here we add the player's velocity
 		// if he's on top of a movable platform RIGHT NOW
@@ -152,10 +156,6 @@ game.playerEntity = me.ObjectEntity.extend({
 			// to ourselves again anyway.
 			this.platform = null;
 		}
-
-		// Need to call this so we can update
-		// the movement, animation and stuff
-		this.parent(delta);
 
 		// Updating the movement and checking for
 		// collisions with the map
@@ -209,16 +209,18 @@ game.playerEntity = me.ObjectEntity.extend({
 				// Head (or butt) collision with platform
 				if (collision.y != 0) {
 					this.falling = false;
-					this.pos.y = previousPos.y;
+//					this.pos.y = previousPos.y;
+
+					if (this.gravity < 0)
+						this.pos.y = collision.obj.bottom;
+					else
+						this.pos.y = collision.obj.top    - this.height;
 				}
 
 				// Side collision
 				if (collision.x != 0) {
-					this.pos.x = previousPos.x;
+//					this.pos.x = previousPos.x;
 				}
-
-				// if (collision.obj.type === me.game.PLATFORM_VANISHING_OBJECT)
-				// 	collision.obj.startVanishing();
 			}
 			return false;
 		}

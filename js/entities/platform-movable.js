@@ -42,9 +42,17 @@ game.platform.movable = {
 /**
  * Platform that moves alongside a predetermined path.
  *
- * The path is defined on Tiled.
+ * The path is defined on Tiled by the entities' width
+ * and height. Plus, you have to define the following
+ * properties:
  *
+ * Name:  "type"       : what kind of movement
+ * Value: "horizontal" : moves horizontally (along x axis)
+ * Value: "vertical"   : moves vertically (along y axis)
  *
+ * Name:  "begin" : from where the movement starts
+ * Value: "start" : starts from left or top (according to "type")
+ * Value: "end"   : starts from right or bottom (according to "type")
  */
 game.platform.movable.entity = game.platform.entity.extend({
 
@@ -64,6 +72,8 @@ game.platform.movable.entity = game.platform.entity.extend({
 		var pathHeight = settings.height;
 
 		// Creating the platform...
+		// It's position (x, y) and size (width, height) will
+		// be set as the default for all platforms.
 		this.parent(x, y, settings);
 
 		// Velocities on the X and Y axis
@@ -71,26 +81,35 @@ game.platform.movable.entity = game.platform.entity.extend({
 
 		// What kind of platform is this?
 		// Falling back to default
-		this.walkType = settings.type || game.platform.movable.type.HORIZONTAL;
+		this.walkType = settings["type"] || game.platform.movable.type.HORIZONTAL;
 
 		// Where should the platform start from?
 		// Falling back to default
-		this.walkStart = settings.begin || game.platform.movable.path.START;
+		this.walkStart = settings["begin"] || game.platform.movable.path.START;
 
+		// Set start/end position based on that initial area
+		// size given by Tiled.
 		if (this.walkType === game.platform.movable.type.HORIZONTAL) {
-
-			// Set start/end position based on that initial area
-			// size given by Tiled.
 			this.startX = this.pos.x;
 			this.endX   = this.pos.x + (pathWidth - settings.spritewidth);
 		}
 		else {
-			// TODO
+			this.startY = this.pos.y;
+			this.endY   = this.pos.y + (pathHeight - settings.spriteheight);
 		}
 
+		// These flags are used to determine which
+		// direction it's moving right now.
+		// They will get initialized on...
+		this.walkLeft = this.walkUp = false;
+
+		// ...this function.
+		// Place it at the beginning, ready to move!
 		this.resetPosition();
 
 		this.type = me.game.PLATFORM_MOVABLE_OBJECT;
+
+		game.HAHA = this;
 	},
 
 	/**
@@ -100,30 +119,31 @@ game.platform.movable.entity = game.platform.entity.extend({
 
 		if (this.walkType === game.platform.movable.type.HORIZONTAL) {
 
-			// From the right
-			if (this.walkStart === game.platform.movable.path.START) {
-				this.pos.x    = this.endX;
-				this.walkLeft = true;
-			}
-
 			// From the left
-			else {
+			if (this.walkStart === game.platform.movable.path.START) {
+
 				this.pos.x    = this.startX;
 				this.walkLeft = false;
+			}
+			// From the right
+			else {
+
+				this.pos.x    = this.endX;
+				this.walkLeft = true;
 			}
 		}
 		else {
 
 			// From the top
 			if (this.walkStart === game.platform.movable.path.START) {
-				this.pos.x    = this.endX;
-				this.walkDown = true;
+				this.pos.y  = this.startY;
+				this.walkUp = false;
 			}
-			else {
 
-				// From the left
-				this.pos.x    = this.startX;
-				this.walkDown = false;
+			// From the bottom
+			else {
+				this.pos.y  = this.endY;
+				this.walkUp = true;
 			}
 		}
 	},
@@ -137,6 +157,8 @@ game.platform.movable.entity = game.platform.entity.extend({
 		if (! this.inViewport) {
 			return false;
 		}
+
+		var previousPosition = this.pos.clone();
 
 		// Making it stay between it's boundaries
 		if (this.walkType === game.platform.movable.type.HORIZONTAL) {
@@ -157,11 +179,32 @@ game.platform.movable.entity = game.platform.entity.extend({
 						  this.accel.x) * me.timer.tick;
 		}
 		else {
-			// TODO
+
+			if ((this.walkUp) &&
+				(this.pos.y <= this.startY))
+				this.walkUp = false;
+
+			else if ((! this.walkUp) &&
+					 (this.pos.y >= this.endY))
+				this.walkUp = true;
+
+			this.vel.y = ((this.walkUp) ?
+						  -this.accel.y :
+						  this.accel.y) * me.timer.tick;
 		}
+
 		// MelonJS' internal function to check collisions
-		// and stuff
-		this.updateMovement();
+		// and stuff against the map.
+		var collision = this.updateMovement();
+
+		// Just hit the map.
+		// Let's invert the movement instead of get stuck.
+		if (collision.y != 0) this.walkUp   = !this.walkUp;
+		if (collision.x != 0) this.walkLeft = !this.walkLeft;
+
+		this.deltaPos = this.deltaPos || {};
+		this.deltaPos.x = this.pos.x - previousPosition.x;
+		this.deltaPos.y = this.pos.y - previousPosition.y;
 
 		// Redraw!
 		return true;
