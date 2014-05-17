@@ -45,6 +45,11 @@ game.resources = [
 		type : "image",
 		src  : "data/image/sprite/star.png"
 	},
+	{
+		name : "platform",
+		type : "image",
+		src  : "data/image/sprite/platform.png"
+	},
 
 	// Backgrounds
 	{

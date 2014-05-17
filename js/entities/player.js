@@ -80,6 +80,12 @@ game.playerEntity = me.ObjectEntity.extend({
 
 	update : function(delta) {
 
+		// Just for safety's sake, let's save the
+		// current player position.
+		// If we do move the player, we might use this
+		// to change it back to where it was.
+		var previousPos = this.pos.clone();
+
 		// This makes the Camera center on the player's
 		// position, making sure it'll move 32 pixels
 		// at a time.
@@ -175,6 +181,23 @@ game.playerEntity = me.ObjectEntity.extend({
 			else if (collision.obj.type === me.game.ENEMY_OBJECT)
 				this.die();
 
+			else if ((collision.obj.type === me.game.PLATFORM_OBJECT) ||
+					 (collision.obj.type === me.game.PLATFORM_VANISHING_OBJECT)) {
+
+				// Head (or butt) collision with platform
+				if (collision.y != 0) {
+					this.falling = false;
+					this.pos.y = previousPos.y;
+				}
+
+				// Side collision
+				if (collision.x != 0) {
+					this.pos.x = previousPos.x;
+				}
+
+				// if (collision.obj.type === me.game.PLATFORM_VANISHING_OBJECT)
+				// 	collision.obj.startVanishing();
+			}
 			return false;
 		}
 		return true;
@@ -235,6 +258,11 @@ game.playerEntity = me.ObjectEntity.extend({
 		);
 
 		me.audio.play("death", false, null, me.save.sfxVolume);
+
+		// This is needed so when the player dies we make
+		// sure it can go through the level again
+		// (if he made some platforms disappear)
+		game.platform.vanishing.showAll();
 	},
 
 	/**
