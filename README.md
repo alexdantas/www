@@ -1,6 +1,6 @@
-# www
+# WWW
 
-`www` is a low-resolution clone of the [indie game VVVVVV][vvvvvv].
+`WWW` is a low-resolution clone of the [indie game VVVVVV][vvvvvv].
 
 It's an open-source 2D HTML5 platformer,
 [made with melonJS][melonjs] and
@@ -33,6 +33,7 @@ nearby checkpoint.
 | Arrow Keys, WASD           | Move          |
 | Space, z, x                | Action        |
 | Enter, ESC                 | Pause         |
+| Shift                      | Walk slowly   |
 
 ## Instructions
 

@@ -1,7 +1,7 @@
 {
-    "name"        : "www",
+    "name"        : "WWW",
     "launch_path" : "./index.html",
-    "version"     : "0.5.3",
+    "version"     : "0.6.6",
 
     "developer": {
         "name" : "Alexandre Dantas",
