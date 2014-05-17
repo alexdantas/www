@@ -87,6 +87,11 @@
     <property name="type" value="bottom"/>
    </properties>
   </object>
+  <object name="checkpoint" x="92" y="58" width="2" height="2">
+   <properties>
+    <property name="type" value="bottom"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ff0000" name="spikes" width="128" height="128">
   <object name="spike" x="142" y="24" width="8" height="2">
@@ -181,6 +186,12 @@
   <object name="platform-vanishing" x="76" y="40" width="4" height="2"/>
   <object name="platform-vanishing" x="80" y="40" width="4" height="2"/>
   <object name="platform-vanishing" x="84" y="40" width="4" height="2"/>
+  <object name="platform-movable" type="s" x="70" y="54" width="24" height="2">
+   <properties>
+    <property name="begin" value="end"/>
+    <property name="type" value="horizontal"/>
+   </properties>
+  </object>
  </objectgroup>
  <objectgroup color="#ffff00" name="player" width="128" height="128">
   <object name="player" x="72" y="40" width="2" height="4"/>

@@ -174,22 +174,24 @@ var game = {
 		//    set this as true to speed things up.
 		//
 		me.pool.register("player",             game.playerEntity);
-		me.pool.register("spike",              game.spikeEntity,             true);
-		me.pool.register("spike-group",        game.spikeGroupEntity,        true);
-		me.pool.register("checkpoint",         game.checkpointEntity,        true);
-		me.pool.register("enemy-path",         game.enemyPathEntity,         true);
-		me.pool.register("enemy-bouncy",       game.enemyBouncyEntity,       true);
-		me.pool.register("message",            game.messageEntity,           true);
-		me.pool.register("alert",              game.alertEntity  ,           true);
-		me.pool.register("platform",           game.platformEntity,          true);
-		me.pool.register("platform-vanishing", game.platformVanishingEntity, true);
+		me.pool.register("spike",              game.spikeEntity,               true);
+		me.pool.register("spike-group",        game.spikeGroupEntity,          true);
+		me.pool.register("checkpoint",         game.checkpointEntity,          true);
+		me.pool.register("enemy-path",         game.enemyPathEntity,           true);
+		me.pool.register("enemy-bouncy",       game.enemyBouncyEntity,         true);
+		me.pool.register("message",            game.messageEntity,             true);
+		me.pool.register("alert",              game.alertEntity  ,             true);
+		me.pool.register("platform",           game.platform.entity,           true);
+		me.pool.register("platform-vanishing", game.platform.vanishing.entity, true);
+		me.pool.register("platform-movable",   game.platform.movable.entity,   true);
 
 		// Defining some custom constants to uniquely
 		// identify some entities on the whole game.
 		me.game.SPIKE_OBJECT      = "spike";
 		me.game.CHECKPOINT_OBJECT = "checkpoint";
 		me.game.PLATFORM_OBJECT   = "platform";
-		me.game.PLATFORM_VANISHING_OBJECT   = "platform-vanishing";
+		me.game.PLATFORM_VANISHING_OBJECT = "platform-vanishing";
+		me.game.PLATFORM_MOVABLE_OBJECT   = "platform-movable";
 
 		// Global fonts we'll use to draw text
 		// (see `resources.js`)

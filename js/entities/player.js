@@ -182,7 +182,8 @@ game.playerEntity = me.ObjectEntity.extend({
 				this.die();
 
 			else if ((collision.obj.type === me.game.PLATFORM_OBJECT) ||
-					 (collision.obj.type === me.game.PLATFORM_VANISHING_OBJECT)) {
+					 (collision.obj.type === me.game.PLATFORM_VANISHING_OBJECT) ||
+					 (collision.obj.type === me.game.PLATFORM_MOVABLE_OBJECT)) {
 
 				// Head (or butt) collision with platform
 				if (collision.y != 0) {

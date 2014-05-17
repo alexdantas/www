@@ -2,10 +2,13 @@
 
 /*global game,me*/
 
+// Making sure this namespace exists
+game.platform = game.platform || {};
+
 /**
  * Floating thing that you can step into.
  */
-game.platformEntity = me.ObjectEntity.extend({
+game.platform.entity = me.ObjectEntity.extend({
 
 	/**
 	 * Create a new Platform.
@@ -26,6 +29,7 @@ game.platformEntity = me.ObjectEntity.extend({
 		this.renderable.addAnimation("stand-there-doing-nothing", [0]);
 		this.renderable.setCurrentAnimation("stand-there-doing-nothing");
 
+		this.gravity = 0;
 		this.collidable = true;
 		this.type = me.game.PLATFORM_OBJECT;
 	}

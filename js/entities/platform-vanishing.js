@@ -90,7 +90,7 @@ game.platform.vanishing = {
 /**
  * Platform that can disappear.
  */
-game.platformVanishingEntity = game.platformEntity.extend({
+game.platform.vanishing.entity = game.platform.entity.extend({
 
 	/**
 	 * Create a new Platform.
