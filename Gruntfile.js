@@ -5,10 +5,31 @@
  */
 
 module.exports = function(grunt) {
+
+	// Including all helpers
+	grunt.loadNpmTasks('grunt-contrib-concat');
+	grunt.loadNpmTasks('grunt-contrib-uglify');
+	grunt.loadNpmTasks('grunt-contrib-copy');
+	grunt.loadNpmTasks('grunt-contrib-clean');
+	grunt.loadNpmTasks('grunt-processhtml');
+	grunt.loadNpmTasks('grunt-rsync');
+	grunt.loadNpmTasks('grunt-node-webkit-builder');
+
 	grunt.initConfig({
 
 		// Package variables
 		pkg: grunt.file.readJSON('package.json'),
+
+		// Files with metadata and stuff
+		meta_files: [
+			'favicon.png',
+			'humans.txt',
+			'LICENSE.md',
+			'manifest.webapp',
+			'package.json',
+			'README.md',
+			'robots.txt'
+		],
 
 		// Concatenates all javascript files into one
 		concat: {
@@ -18,6 +39,7 @@ module.exports = function(grunt) {
 					'lib/plugins/*.js',
 					'js/game.js',
 					'js/resources.js',
+					'js/repeatable-sprites.js',
 					'js/**/*.js'
 				],
 				dest: 'build/js/app.js'
@@ -126,17 +148,11 @@ module.exports = function(grunt) {
 		}
 	});
 
-	grunt.loadNpmTasks('grunt-contrib-concat');
-	grunt.loadNpmTasks('grunt-contrib-uglify');
-	grunt.loadNpmTasks('grunt-contrib-copy');
-	grunt.loadNpmTasks('grunt-processhtml');
-	grunt.loadNpmTasks('grunt-rsync');
-	grunt.loadNpmTasks('grunt-node-webkit-builder');
-
 	// Things that will run by default
 	grunt.registerTask('default', [
 		'concat',
 		'uglify',
+		'clean',
 		'copy',
 		'processhtml',
 		'rsync'
