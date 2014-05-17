@@ -26,8 +26,8 @@ game.platform.movable = {
 	 * Defines where the platform will start movin'.
 	 *
 	 * If the platform is HORIZONTAL:
-	 * - START: Begin from the right
-	 * - END:   Begin from the left
+	 * - START: Begin from the left
+	 * - END:   Begin from the right
 	 *
 	 * If the platform is VERTICAL:
 	 * - START: Begin from the top
@@ -67,7 +67,7 @@ game.platform.movable.entity = game.platform.entity.extend({
 		this.parent(x, y, settings);
 
 		// Velocities on the X and Y axis
-		this.setVelocity(0.19, 0.19);
+		this.setVelocity(0.17, 0.17);
 
 		// What kind of platform is this?
 		// Falling back to default
@@ -83,25 +83,49 @@ game.platform.movable.entity = game.platform.entity.extend({
 			// size given by Tiled.
 			this.startX = this.pos.x;
 			this.endX   = this.pos.x + (pathWidth - settings.spritewidth);
-
-			// Defining where it'll start
-			//
-			// From the right
-			if (this.walkStart === game.platform.movable.path.START) {
-				this.pos.x = this.pos.x + pathWidth - settings.spritewidth;
-				this.walkLeft = true;
-			}
-			// From the left
-			else {
-				this.pos.x = this.pos.x; // WUT m8
-				this.walkLeft = false;
-			}
 		}
 		else {
 			// TODO
 		}
 
+		this.resetPosition();
+
 		this.type = me.game.PLATFORM_MOVABLE_OBJECT;
+	},
+
+	/**
+	 * Places the platform back on it's starting position.
+	 */
+	resetPosition : function () {
+
+		if (this.walkType === game.platform.movable.type.HORIZONTAL) {
+
+			// From the right
+			if (this.walkStart === game.platform.movable.path.START) {
+				this.pos.x    = this.endX;
+				this.walkLeft = true;
+			}
+
+			// From the left
+			else {
+				this.pos.x    = this.startX;
+				this.walkLeft = false;
+			}
+		}
+		else {
+
+			// From the top
+			if (this.walkStart === game.platform.movable.path.START) {
+				this.pos.x    = this.endX;
+				this.walkDown = true;
+			}
+			else {
+
+				// From the left
+				this.pos.x    = this.startX;
+				this.walkDown = false;
+			}
+		}
 	},
 
 	/**
@@ -110,8 +134,9 @@ game.platform.movable.entity = game.platform.entity.extend({
 	update : function(delta) {
 
 		// Do nothing if not on the screen
-		if (! this.inViewport)
+		if (! this.inViewport) {
 			return false;
+		}
 
 		// Making it stay between it's boundaries
 		if (this.walkType === game.platform.movable.type.HORIZONTAL) {
@@ -125,9 +150,11 @@ game.platform.movable.entity = game.platform.entity.extend({
 				this.walkLeft = true;
 
 			// Make it walk
-			this.vel.x += ((this.walkLeft) ?
-						   -this.accel.x :
-						   this.accel.x) * me.timer.tick;
+			// Note that it's a stiff movement,
+			// with only two possible speeds.
+			this.vel.x = ((this.walkLeft) ?
+						  -this.accel.x :
+						  this.accel.x) * me.timer.tick;
 		}
 		else {
 			// TODO
@@ -138,6 +165,25 @@ game.platform.movable.entity = game.platform.entity.extend({
 
 		// Redraw!
 		return true;
+	},
+
+	/**
+	 * Called when anything collide with us.
+	 *
+	 * Probably the player, so let's attach ourselves
+	 * to it.
+	 * This way it can keep up with our speed.
+	 */
+	onCollision : function(collision, other) {
+
+		// Only vanish if it's the Player
+		if (other.type === me.game.PLAYER_OBJECT)
+
+			// Only vanish if collided with the head
+			// or butt - never on the Player's sides.
+			if (collision.y != 0)
+
+				other.platform = this;
 	}
 });
 

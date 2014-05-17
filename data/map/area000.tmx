@@ -194,7 +194,7 @@
   </object>
  </objectgroup>
  <objectgroup color="#ffff00" name="player" width="128" height="128">
-  <object name="player" x="72" y="40" width="2" height="4"/>
+  <object name="player" x="94" y="56" width="2" height="4"/>
   <object name="alert" x="-6" y="64" width="28" height="2">
    <properties>
     <property name="text" value="Congrats, you beat the beta version of www! Expect more levels soon."/>

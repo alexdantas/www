@@ -64,6 +64,14 @@ game.playerEntity = me.ObjectEntity.extend({
 		// (simulating a checkpoint)
 		this.checkpoint(this.pos.x, this.pos.y+2, game.checkpoint.type.BOTTOM);
 
+		// Movable platform attached to the Player
+		//
+		// When the player steps on a movable platform,
+		// it'll attach to the player through this variable.
+		// We use it to move the Player alongside the platform
+		// on `update()`.
+		this.platform = null;
+
 		// Keeping a global reference so we can acccess
 		// the player anywhere.
 		game.player = this;
@@ -125,10 +133,24 @@ game.playerEntity = me.ObjectEntity.extend({
 		else if (me.input.isKeyPressed("right")) this.vel.x = xSpeedIncrease;
 		else                                     this.vel.x = 0;
 
-		// DEBUG
+		// Panic Button aka. Suicide Key aka. Angel of death aka...
 		if (me.input.isKeyPressed("die")) {
 			this.die();
 			return false;
+		}
+
+		// Moving Platforms!
+		// Here we add the player's velocity
+		// if he's on top of a movable platform RIGHT NOW
+		if (this.platform) {
+			this.vel.x += this.platform.vel.x;
+			this.vel.y += this.platform.vel.y;
+
+			// And now that I've updated the speed, let's
+			// clear any platforms associated to us.
+			// If we're still on top of one, it'll attach
+			// to ourselves again anyway.
+			this.platform = null;
 		}
 
 		// Need to call this so we can update
@@ -170,15 +192,14 @@ game.playerEntity = me.ObjectEntity.extend({
 		else
 			this.falling = true;
 
-		// Now checking for collision with game objects
+		// Now checking for collision with
+		// game objects
 		collision = me.game.world.collide(this);
 
 		if (collision) {
 
-			if (collision.obj.type === me.game.SPIKE_OBJECT)
-				this.die();
-
-			else if (collision.obj.type === me.game.ENEMY_OBJECT)
+			if ((collision.obj.type === me.game.SPIKE_OBJECT) ||
+				(collision.obj.type === me.game.ENEMY_OBJECT))
 				this.die();
 
 			else if ((collision.obj.type === me.game.PLATFORM_OBJECT) ||
