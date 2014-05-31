@@ -226,6 +226,7 @@ game.playerEntity = me.ObjectEntity.extend({
 			}
 			else if (collision.obj.type === me.game.TELEPORTER_OBJECT) {
 				// game over
+				me.state.change(me.state.GAME_OVER);
 			}
 
 			return false;

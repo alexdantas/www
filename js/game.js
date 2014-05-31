@@ -159,6 +159,7 @@ var game = {
 		me.state.set(me.state.STATE_MAIN_MENU, new game.MainMenuState());
 		me.state.set(me.state.STATE_PLAY,      new game.PlayState());
 		me.state.set(me.state.STATE_CREDITS,   new game.CreditsState());
+		me.state.set(me.state.GAME_OVER,       new game.GameOverState());
 
 		// Global transition to occur between all states
 		me.state.transition("fade", "#000000", 250);
