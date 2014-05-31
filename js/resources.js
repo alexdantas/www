@@ -36,9 +36,29 @@ game.resources = [
 		src  : "data/image/sprite/checkpoint.png"
 	},
 	{
-		name : "enemy-square",
+		name : "enemy-square1",
 		type : "image",
 		src  : "data/image/sprite/enemy-square.png"
+	},
+	{
+		name : "enemy-square2",
+		type : "image",
+		src  : "data/image/sprite/enemy-square2.png"
+	},
+	{
+		name : "enemy-square3",
+		type : "image",
+		src  : "data/image/sprite/enemy-square3.png"
+	},
+	{
+		name : "enemy-square4",
+		type : "image",
+		src  : "data/image/sprite/enemy-square4.png"
+	},
+	{
+		name : "enemy-square5",
+		type : "image",
+		src  : "data/image/sprite/enemy-square5.png"
 	},
 	{
 		name : "star",

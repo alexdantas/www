@@ -15,7 +15,10 @@ game.enemy.entity = me.ObjectEntity.extend({
 	 */
 	init : function(x, y, settings) {
 
-		settings.image = "enemy-square";
+		// Randomly selecting between enemy-square[1-5]
+		var sprite = Number.prototype.random(1, 5);
+
+		settings.image = "enemy-square" + sprite;
 
 		settings.spritewidth  = settings.width  = 2;
 		settings.spriteheight = settings.height = 2;
