@@ -189,6 +189,8 @@ game.playerEntity = me.ObjectEntity.extend({
 			this.pos.y = Math.floor(this.pos.y);
 
 		}
+		// Not colliding - means the player can switch
+		// the gravity
 		else
 			this.falling = true;
 
@@ -209,17 +211,17 @@ game.playerEntity = me.ObjectEntity.extend({
 				// Head (or butt) collision with platform
 				if (collision.y != 0) {
 					this.falling = false;
-//					this.pos.y = previousPos.y;
+					this.vel.y = 0;
 
 					if (this.gravity < 0)
 						this.pos.y = collision.obj.bottom;
 					else
-						this.pos.y = collision.obj.top    - this.height;
+						this.pos.y = collision.obj.top - this.height;
 				}
 
 				// Side collision
 				if (collision.x != 0) {
-//					this.pos.x = previousPos.x;
+					// What should I do?
 				}
 			}
 			return false;
