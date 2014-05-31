@@ -1,5 +1,7 @@
 # WWW
 
+![gif](http://alexdantas.net/stuff/wp-content/uploads/2014/05/www-0.5.3.gif)
+
 `WWW` is a low-resolution clone of the [indie game VVVVVV][vvvvvv].
 
 It's an open-source 2D HTML5 platformer,
