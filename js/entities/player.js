@@ -224,6 +224,10 @@ game.playerEntity = me.ObjectEntity.extend({
 					// What should I do?
 				}
 			}
+			else if (collision.obj.type === me.game.TELEPORTER_OBJECT) {
+				// game over
+			}
+
 			return false;
 		}
 		return true;

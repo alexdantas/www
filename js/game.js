@@ -181,7 +181,8 @@ var game = {
 		me.pool.register("enemy-path",         game.enemy.path.entity,         true);
 		me.pool.register("enemy-bouncy",       game.enemy.bouncy.entity,       true);
 		me.pool.register("message",            game.messageEntity,             true);
-		me.pool.register("alert",              game.alertEntity  ,             true);
+		me.pool.register("alert",              game.alertEntity,               true);
+		me.pool.register("teleporter",         game.teleporter.entity,         true);
 		me.pool.register("platform",           game.platform.entity,           true);
 		me.pool.register("platform-vanishing", game.platform.vanishing.entity, true);
 		me.pool.register("platform-movable",   game.platform.movable.entity,   true);
