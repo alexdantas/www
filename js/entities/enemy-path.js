@@ -18,11 +18,11 @@ game.enemy.path.type = {
 /**
  * Defines where the enemy will start movin'.
  *
- * If the platform is HORIZONTAL:
+ * If the enemy is HORIZONTAL:
  * - START: Begin from the left
  * - END:   Begin from the right
  *
- * If the platform is VERTICAL:
+ * If the enemy is VERTICAL:
  * - START: Begin from the top
  * - END:   Begin from the bottom
  */
@@ -42,7 +42,7 @@ game.enemy.path.path = {
  * - If it's a horizontal enemy, it's Tiled width
  *   is the path.
  */
-game.enemy.path.entity = me.ObjectEntity.extend({
+game.enemy.path.entity = game.enemy.entity.extend({
 
 	/**
 	 * Creates the enemy.
@@ -64,12 +64,11 @@ game.enemy.path.entity = me.ObjectEntity.extend({
 		var pathWidth  = settings.width;
 		var pathHeight = settings.height;
 
-		// Adjust the size setting to match the sprite size
-		settings.image = "enemy-square";
-		settings.spritewidth  = settings.width  = 2;
-		settings.spriteheight = settings.height = 2;
-
+		// Creating our parent Enemy class.
 		this.parent(x, y, settings);
+
+		// X and Y velocities
+		this.setVelocity(0.12, 0.12);
 
 		// Set start/end position based on that initial area
 		// size given by Tiled.
@@ -86,20 +85,6 @@ game.enemy.path.entity = me.ObjectEntity.extend({
 		this.walkLeft = this.walkUp = false;
 
 		this.resetPosition();
-
-		// X and Y velocities
-		this.setVelocity(0.12, 0.12);
-
-		// This object doesn't respect the laws
-		// of physics.
-		this.gravity = 0;
-
-		// Animation!
-		this.renderable.addAnimation("walking", [0, 1, 2, 3], 400);
-		this.renderable.setCurrentAnimation("walking");
-
-		this.collidable = true;
-		this.type = me.game.ENEMY_OBJECT;
 	},
 
 
@@ -151,7 +136,7 @@ game.enemy.path.entity = me.ObjectEntity.extend({
 	},
 
 	/**
-	 * Manages platform movement.
+	 * Manages enemy movement.
 	 */
 	update : function(delta) {
 

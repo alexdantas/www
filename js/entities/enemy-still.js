@@ -1,1 +1,0 @@
-// Enemy that stands still

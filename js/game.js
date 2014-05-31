@@ -177,6 +177,7 @@ var game = {
 		me.pool.register("spike",              game.spikeEntity,               true);
 		me.pool.register("spike-group",        game.spikeGroupEntity,          true);
 		me.pool.register("checkpoint",         game.checkpointEntity,          true);
+		me.pool.register("enemy",              game.enemy.entity,              true);
 		me.pool.register("enemy-path",         game.enemy.path.entity,         true);
 		me.pool.register("enemy-bouncy",       game.enemy.bouncy.entity,       true);
 		me.pool.register("message",            game.messageEntity,             true);

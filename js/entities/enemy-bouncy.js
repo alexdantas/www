@@ -14,7 +14,7 @@ game.enemy.bouncy.type = {
  * Walks through an axis (vertical, horizontal or both)
  * bouncing on every tile on the map that's solid.
  */
-game.enemy.bouncy.entity = me.ObjectEntity.extend({
+game.enemy.bouncy.entity = game.enemy.entity.extend({
 
 	/**
 	 * Creates the enemy.
@@ -27,11 +27,7 @@ game.enemy.bouncy.entity = me.ObjectEntity.extend({
 	init : function (x, y, settings) {
 
 		// Defaulting to horizontal enemy
-		settings.type = settings.type || game.enemy.bouncy.type.HORIZONTAL;
-
-		settings.image = "enemy-square";
-		settings.spritewidth  = settings.width  = 2;
-		settings.spriteheight = settings.height = 2;
+		this.walkType = settings.type || game.enemy.bouncy.type.HORIZONTAL;
 
 		this.parent(x, y, settings);
 
@@ -39,15 +35,6 @@ game.enemy.bouncy.entity = me.ObjectEntity.extend({
 		this.walkUp   = true;
 
 		this.setVelocity(0.12, 0.12);
-		this.gravity = 0;
-		this.collidable = true;
-
-		this.renderable.addAnimation("walking", [0, 1, 2, 3], 400);
-		this.renderable.setCurrentAnimation("walking");
-
-		this.type     = me.game.ENEMY_OBJECT;  // For melonJS
-		this.walkType = settings.type;         // For ourselves
-
 
 		// THIS IS A "BUG" ON MELONJS
 		// Since the player is 2 pixels large, it's
