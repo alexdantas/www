@@ -39,7 +39,9 @@ nearby checkpoint.
 
 ## Instructions
 
-[To play the game right now, follow this link][play].
+* [To play the game right now, follow this link][play];
+* [Mirror on GameJolt](http://gamejolt.com/games/platformer/www/26571/);
+* [Mirror on itch.io](http://alexdantas.itch.io/www/);
 
 If you want your own **offline version**, [download the repository][release],
 start a web server and open `index.html` on your favorite browser.

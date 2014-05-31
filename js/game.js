@@ -10,7 +10,7 @@ var game = {
 	/**
 	 * Game version; the same as `package.json`.
 	 */
-	version : "0.6.6",
+	version : "0.8.2",
 
 	/**
 	 * Stores information that will be used on current
