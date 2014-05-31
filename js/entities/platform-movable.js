@@ -108,8 +108,6 @@ game.platform.movable.entity = game.platform.entity.extend({
 		this.resetPosition();
 
 		this.type = me.game.PLATFORM_MOVABLE_OBJECT;
-
-		game.HAHA = this;
 	},
 
 	/**

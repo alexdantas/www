@@ -1,5 +1,3 @@
-// Enemy that bounces all around
-
 /*global game,me*/
 
 game.enemy = game.enemy || {};
@@ -16,7 +14,7 @@ game.enemy.bouncy.type = {
  * Walks through an axis (vertical, horizontal or both)
  * bouncing on every tile on the map that's solid.
  */
-game.enemyBouncyEntity = me.ObjectEntity.extend({
+game.enemy.bouncy.entity = me.ObjectEntity.extend({
 
 	/**
 	 * Creates the enemy.
