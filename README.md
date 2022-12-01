@@ -2,13 +2,10 @@
 
 `WWW` is a low-resolution clone of the [indie game VVVVVV][vvvvvv].
 
-![gif](http://alexdantas.net/stuff/wp-content/uploads/2014/05/www-0.5.3.gif)
-
 It's an open-source 2D HTML5 platformer,
 [made with melonJS][melonjs] and
 created for the [2014 Low Resolution GameJam (#lowrezjam 2014)][jam].
 
-* [Play the game online (live demo)][play];
 * [Mirror on Newgrounds](http://www.newgrounds.com/portal/view/640265);
 * [Mirror on GameJolt](http://gamejolt.com/games/platformer/www/26571/);
 * [Mirror on itch.io](http://alexdantas.itch.io/www/);
@@ -132,7 +129,6 @@ cannot do with it.
 [jam]:    http://jams.gamejolt.io/lowrezjam2014
 [vvvvvv]: http://thelettervsixtim.es/
 [intro]:  http://vvvvvv-wiki.wikispaces.com/Introduction
-[play]:   http://alexdantas.net/games/www/
 [release]:https://github.com/alexdantas/www/releases
 [pppppp]: http://www.souleye.se/pppppp
 [github-vvvvvv]: https://github.com/search?q=vvvvvv&type=Repositories&ref=searchresults
