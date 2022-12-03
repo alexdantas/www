@@ -127,9 +127,9 @@ game.pauseHandlerEntity = me.Renderable.extend({
 			if (action === "pause") {
 
 				if (me.state.isPaused()) {
+					game.pauseHandler.enableMenu(false);
 					me.state.resume();
 					me.audio.resumeTrack();
-					game.pauseHandler.enableMenu(false);
 				}
 				else {
 					game.pauseHandler.enableMenu(true);
